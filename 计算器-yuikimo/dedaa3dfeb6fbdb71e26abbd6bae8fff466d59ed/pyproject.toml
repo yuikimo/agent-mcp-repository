@@ -1,0 +1,23 @@
+[project]
+name = "vkey-calculator-kel"
+version = "0.1.7"
+description = "vkey mcp calculator"
+readme = "README.md"
+authors = [
+    { name = "'vkey'", email = "vkey@qq.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "build>=1.2.2.post1",
+    "deepdiff>=8.5.0",
+    "fastmcp>=2.9.0",
+    "mcp[cli]>=1.9.4",
+    "twine>=6.1.0",
+]
+
+[project.scripts]
+vkey-calculator-kel = "vkey_calculator_kel:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
