@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Bump version across all config files, commit, tag, and push.
+# Usage: ./scripts/release.sh <version>
+# Example: ./scripts/release.sh 0.3.0
+
+set -euo pipefail
+
+VERSION="${1:?Usage: ./scripts/release.sh <version>}"
+
+# Strip leading "v" if provided
+VERSION="${VERSION#v}"
+
+echo "Releasing v${VERSION}..."
+
+# Bump package.json
+npm version "$VERSION" --no-git-tag-version --allow-same-version
+
+# Bump server.json
+jq --arg v "$VERSION" '.version = $v | .packages[0].version = $v' server.json > server.tmp && mv server.tmp server.json
+
+# Bump manifest.json
+jq --arg v "$VERSION" '.version = $v' manifest.json > manifest.tmp && mv manifest.tmp manifest.json
+
+# Bump hardcoded version in src/index.ts
+sed -i '' "s/version: \"[0-9]*\.[0-9]*\.[0-9]*\"/version: \"${VERSION}\"/" src/index.ts
+
+# Commit if there are changes
+git add package.json package-lock.json server.json manifest.json src/index.ts
+if ! git diff --cached --quiet; then
+  git commit -m "v${VERSION}"
+fi
+
+git tag "v${VERSION}"
+git push origin main "v${VERSION}"
+
+echo "Done - v${VERSION} tagged and pushed."

@@ -1,0 +1,69 @@
+{
+  "name": "ani-mcp",
+  "mcpName": "io.github.gavxm/ani-mcp",
+  "version": "0.15.4",
+  "description": "A smart [MCP](https://modelcontextprotocol.io) server for [AniList](https://anilist.co) that gets your anime/manga taste - not just API calls.",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "ani-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "inspect": "npx @modelcontextprotocol/inspector tsx src/index.ts",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint src/",
+    "format": "prettier --write src/",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "pack": "npx @anthropic-ai/mcpb pack",
+    "release": "./scripts/release.sh"
+  },
+  "keywords": [
+    "mcp",
+    "anilist",
+    "anime",
+    "manga"
+  ],
+  "author": "gavxm <gavxm@pm.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavxm/ani-mcp.git"
+  },
+  "homepage": "https://github.com/gavxm/ani-mcp",
+  "files": [
+    "dist",
+    "server.json",
+    "manifest.json"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "fastmcp": "^4.0.0",
+    "lru-cache": "^11.3.5",
+    "p-retry": "^8.0.0",
+    "p-throttle": "^8.1.0",
+    "sharp": "^0.34.5",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
+    "@types/sharp": "^0.32.0",
+    "@vitest/coverage-v8": "^4.1.4",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "msw": "^2.13.3",
+    "prettier": "^3.8.3",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.2",
+    "vitest": "^4.1.4"
+  }
+}
